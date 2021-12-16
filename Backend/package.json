@@ -1,0 +1,12 @@
+{
+  "name": "synthesis",
+  "description": "synthesis picture",
+  "version": "1.0.0",
+  "author": {
+    "name": "sergey"
+  },
+  "dependencies": {
+    "canvas": "^2.8.0",
+    "merge-images-v2": "^2.0.1"
+  }
+}
