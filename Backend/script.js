@@ -3,12 +3,40 @@ const fs = require('fs');
 const path = require('path');
 const Canvas = require('canvas');
 
-const number = [
-  ['red', 'blue', 'green', 'red', 'blue', 'green']
-]
+const head = [green, red, blue, pink, purple, grey];
+const horn = [green, red, blue, pink, purple, grey];
+const jeans = [green, red, blue, pink, purple, grey];
+const shirt = [green, red, blue, pink, purple, grey];
+const shoes = [green, red, blue, pink, purple, grey];
+const tail = [green, red, blue, pink, purple, grey];
+// const character = [
+//   ['red', 'pink', 'green', 'red', 'blue', 'green']
+// ]
+let repeatation = []
+const character = [];
+const children = [];
+const generateCharacter = () => {
+  return Math.trunc(Math.random() * 10 ** 6)
+}
+
+const generateAll = () => {
+  for (let i = 0; i < 10000; i++) {
+    let value = generateCharacter().toString();
+    
+    children.push(tail[value.slice(0, 1)])
+    children.push(head[value.slice(1, 2)])
+    children.push(horn[value.slice(2, 3)])
+    children.push(jeans[value.slice(3, 4)])
+    children.push(shirt[value.slice(4, 5)])
+    children.push(shoes[value.slice(5, 6)])
+
+    character.push(children)
+  }
+  console.log(character)
+}
 const prefix = path.resolve('public/');
 let i;
-number.forEach((n, idx) => {
+character.forEach((n, idx) => {
   i = 0;
   let imgs = n.map(attr => {
     i += 1;
