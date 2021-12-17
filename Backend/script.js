@@ -37,7 +37,7 @@ const generateCharacter = () => {
 }
 
 const generateAll = () => {
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     let value = generateCharacter().toString();
     if(value.length < 6) {
       let zero = 6 - value.length;
