@@ -3,37 +3,62 @@ const fs = require('fs');
 const path = require('path');
 const Canvas = require('canvas');
 
-const head = [green, red, blue, pink, purple, grey];
-const horn = [green, red, blue, pink, purple, grey];
-const jeans = [green, red, blue, pink, purple, grey];
-const shirt = [green, red, blue, pink, purple, grey];
-const shoes = [green, red, blue, pink, purple, grey];
-const tail = [green, red, blue, pink, purple, grey];
+const head = ['green', 'red', 'blue', 'pink', 'purple', 'grey', 'aa', 'bb', 'cc', 'dd'];
+const horn = ['green', 'red', 'blue', 'pink', 'purple', 'grey', 'aa', 'bb', 'cc', 'dd'];
+const jeans = ['green', 'red', 'blue', 'pink', 'purple', 'grey', 'aa', 'bb', 'cc', 'dd'];
+const shirt = ['green', 'red', 'blue', 'pink', 'purple', 'grey', 'aa', 'bb', 'cc', 'dd'];
+const shoes = ['green', 'red', 'blue', 'pink', 'purple', 'grey', 'aa', 'bb', 'cc', 'dd'];
+const tail = ['green', 'red', 'blue', 'pink', 'purple', 'grey', 'aa', 'bb', 'cc', 'dd'];
 // const character = [
 //   ['red', 'pink', 'green', 'red', 'blue', 'green']
 // ]
 let repeatation = []
 const character = [];
-const children = [];
-const generateCharacter = () => {
+let children = [];
+
+const randomFunc = () => {
   return Math.trunc(Math.random() * 10 ** 6)
+}
+const generateCharacter = () => {
+  let random = randomFunc()
+  let repeatState = 0;
+  for(let j = 0; j < repeatation.length; j++) {
+    if(repeatation[j] === random) {
+      repeatState = 1;
+    }
+  }
+  if(repeatState === 0) {
+    return random;
+  } else {
+    console.log('repeatation')
+    generateCharacter()
+  }
+
 }
 
 const generateAll = () => {
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 1000; i++) {
     let value = generateCharacter().toString();
-    
+    if(value.length < 6) {
+      let zero = 6 - value.length;
+      for(let k = 0; k < zero; k++) {
+        value = 0 + value;
+      }
+    }
+    children = []
     children.push(tail[value.slice(0, 1)])
     children.push(head[value.slice(1, 2)])
     children.push(horn[value.slice(2, 3)])
     children.push(jeans[value.slice(3, 4)])
     children.push(shirt[value.slice(4, 5)])
     children.push(shoes[value.slice(5, 6)])
-
     character.push(children)
   }
-  console.log(character)
+  
 }
+
+generateAll()
+// console.log(character)
 const prefix = path.resolve('public/');
 let i;
 character.forEach((n, idx) => {
@@ -48,6 +73,7 @@ character.forEach((n, idx) => {
     else if(i == 6) return prefix + "/shoes/" + attr + '.PNG'    
   });
   let imagePath = path.resolve('image') + `/${idx + 1}.png`;
+  let metadataPath = path.resolve('metadata') + `/${idx + 1}.json`
   mergeImages(imgs, {
     Canvas: Canvas
   }).then(img => {
