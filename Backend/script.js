@@ -18,7 +18,7 @@ const character = [];
 let children = [];
 
 const randomFunc = () => {
-  return Math.trunc(Math.random() * 10 ** 6)
+  return Math.trunc(Math.random() * 10 ** 7)
 }
 const generateCharacter = () => {
   let random = randomFunc()
@@ -43,26 +43,26 @@ const generateAll = () => {
   for (let i = 0; i < 1000; i++) {
     let value = generateCharacter().toString();
     // console.log(value)
-    if(value.length < 6) {
-      let zero = 6 - value.length;
+    if(value.length < 7) {
+      let zero = 7 - value.length;
       for(let k = 0; k < zero; k++) {
         value = 0 + value;
       }
     }
     children = []
-    // children.push(background[value.slice(0, 1)])
-    // children.push(tail[value.slice(1, 2)])
-    // children.push(head[value.slice(2, 3)])
-    // children.push(horn[value.slice(3, 4)])
-    // children.push(jeans[value.slice(4, 5)])
-    // children.push(shirt[value.slice(5, 6)])
-    // children.push(shoes[value.slice(6, 7)])
-    children.push(tail[value.slice(0, 1)])
-    children.push(head[value.slice(1, 2)])
-    children.push(horn[value.slice(2, 3)])
-    children.push(jeans[value.slice(3, 4)])
-    children.push(shirt[value.slice(4, 5)])
-    children.push(shoes[value.slice(5, 6)])
+    children.push(background[value.slice(0, 1)])
+    children.push(tail[value.slice(1, 2)])
+    children.push(head[value.slice(2, 3)])
+    children.push(horn[value.slice(3, 4)])
+    children.push(jeans[value.slice(4, 5)])
+    children.push(shirt[value.slice(5, 6)])
+    children.push(shoes[value.slice(6, 7)])
+    // children.push(tail[value.slice(0, 1)])
+    // children.push(head[value.slice(1, 2)])
+    // children.push(horn[value.slice(2, 3)])
+    // children.push(jeans[value.slice(3, 4)])
+    // children.push(shirt[value.slice(4, 5)])
+    // children.push(shoes[value.slice(5, 6)])
     character.push(children)
   }
   
@@ -76,42 +76,42 @@ character.forEach((n, idx) => {
   i = 0;
   let imgs = n.map(attr => {    
     i += 1; 
-    // if(i == 1) return prefix + "/background/" + attr + '.PNG'
-    // else if(i == 2) return prefix + "/tail/" + attr + '.PNG'
-    // else if(i == 3) return prefix + "/head/" + attr + '.PNG'
-    // else if(i == 4) return prefix + "/horn/" + attr + '.PNG'
-    // else if(i == 5) return prefix + "/jeans/" + attr + '.PNG'
-    // else if(i == 6) return prefix + "/shirt/" + attr + '.PNG'
-    // else if(i == 7) return prefix + "/shoes/" + attr + '.PNG' 
-    if(i == 1) return prefix + "/tail/" + attr + '.PNG'
-    else if(i == 2) return prefix + "/head/" + attr + '.PNG'
-    else if(i == 3) return prefix + "/horn/" + attr + '.PNG'
-    else if(i == 4) return prefix + "/jeans/" + attr + '.PNG'
-    else if(i == 5) return prefix + "/shirt/" + attr + '.PNG'
-    else if(i == 6) return prefix + "/shoes/" + attr + '.PNG'
+    if(i == 1) return prefix + "/background/" + attr + '.PNG'
+    else if(i == 2) return prefix + "/tail/" + attr + '.PNG'
+    else if(i == 3) return prefix + "/head/" + attr + '.PNG'
+    else if(i == 4) return prefix + "/horn/" + attr + '.PNG'
+    else if(i == 5) return prefix + "/jeans/" + attr + '.PNG'
+    else if(i == 6) return prefix + "/shirt/" + attr + '.PNG'
+    else if(i == 7) return prefix + "/shoes/" + attr + '.PNG' 
+    // if(i == 1) return prefix + "/tail/" + attr + '.PNG'
+    // else if(i == 2) return prefix + "/head/" + attr + '.PNG'
+    // else if(i == 3) return prefix + "/horn/" + attr + '.PNG'
+    // else if(i == 4) return prefix + "/jeans/" + attr + '.PNG'
+    // else if(i == 5) return prefix + "/shirt/" + attr + '.PNG'
+    // else if(i == 6) return prefix + "/shoes/" + attr + '.PNG'
       
   });
-  let imagePath = path.resolve('image') + `/${idx + 1 + 7000}.png`;
-  let metadataPath = path.resolve('metadata') + `/${idx + 1 + 7000}.json`;
+  let imagePath = path.resolve('image') + `/${idx + 1 + 9000}.png`;
+  let metadataPath = path.resolve('metadata') + `/${idx + 1 + 9000}.json`;
   const metadata = {
     description: "Dragon is a collection of Crypto Dragon.",
-    name: "Betting dragon #" + (idx + 1 + 7000),
+    name: "Betting dragon #" + (idx + 1 + 9000),
     attributes: {
-      // background: character[idx][0],
-      // head: character[idx][2],
-      // horncap: character[idx][3],
-      // jeans: character[idx][4],
-      // shirt: character[idx][5],
-      // shoes: character[idx][6],
-      // tail: character[idx][1]    
-      head: character[idx][1],
-      horncap: character[idx][2],
-      jeans: character[idx][3],
-      shirt: character[idx][4],
-      shoes: character[idx][5],
-      tail: character[idx][0]
+      background: character[idx][0],
+      head: character[idx][2],
+      horncap: character[idx][3],
+      jeans: character[idx][4],
+      shirt: character[idx][5],
+      shoes: character[idx][6],
+      tail: character[idx][1]    
+      // head: character[idx][1],
+      // horncap: character[idx][2],
+      // jeans: character[idx][3],
+      // shirt: character[idx][4],
+      // shoes: character[idx][5],
+      // tail: character[idx][0]
     },
-    image: `https://gateway.pinata/${idx + 1 + 7000}.png`
+    image: `https://gateway.pinata/${idx + 1 + 9000}.png`
   }
   // console.log(imgs)
   fs.writeFileSync(metadataPath, JSON.stringify(metadata))

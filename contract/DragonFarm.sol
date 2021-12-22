@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >= 0.7.0 < 0.9.0;
-import '@openzeppelin/contracts/access/Ownable.sol';
+import "@openzeppelin/contracts/access/Ownable.sol";
 interface IDragonNFT {
   function balanceOf(address _user) external view returns(uint256);
   function transferFrom(address _user1, address _user2, uint256 _tokenId) external;
@@ -14,7 +14,6 @@ interface IDragonToken {
 contract DragonFarm is Ownable {
   IDragonNFT public dragonNFT;
   IDragonToken public yieldToken;
-  address public admin = 0xD4577dA97872816534068B3aa8c9fFEd2ED7860C;
   uint256 public constant dailyReward = 20 ether;
   mapping(address => uint256) public harvests;
   mapping(address => uint256) public lastUpdate;
@@ -137,7 +136,7 @@ contract DragonFarm is Ownable {
     uint256 time = block.timestamp;
     uint256 timerFrom = lastUpdateFt[msg.sender];
     if (timerFrom > 0)
-      harvestsFt[msg.sender] += stakeBalancesFt[msg.sender] * (time - timerFrom) / 86400 /50;
+      harvestsFt[msg.sender] += stakeBalancesFt[msg.sender] * 5 * (time - timerFrom) / 86400 / 100;
     lastUpdateFt[msg.sender] = time;
   }
 
@@ -164,6 +163,6 @@ contract DragonFarm is Ownable {
   }
 
   function withdrawCash() public onlyOwner {
-    yieldToken.transfer(admin, yieldToken.balanceOf(address(this)));
+    yieldToken.transfer(owner(), yieldToken.balanceOf(address(this)));
   }
 }

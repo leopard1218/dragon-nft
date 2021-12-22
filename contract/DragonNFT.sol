@@ -1,22 +1,21 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity >=0.7.0 <0.9.0;
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
-import '@openzeppelin/contracts/access/Ownable.sol';
-import './yieldToken.sol';
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 contract DragonNFT is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
   string baseURI;
   string public baseExtension = ".json";
-  uint256[5] private PRICES =  [10 ether, 15 ether, 20 ether, 25 ether, 30 ether];
+  uint256[5] private PRICES =  [100 ether, 150 ether, 200 ether, 250 ether, 300 ether];
   uint256 public maxSupply = 10000;
-  uint256 public maxMintAmount = 10;
+  uint256 public maxMintAmount = 20;
   bool public paused = false;
   uint8 private currentPriceId = 0;
-  YieldToken public yieldToken;
   // Admin wallets
-  address public constant founderAddress1 = 0xD4577dA97872816534068B3aa8c9fFEd2ED7860C;
+  address public constant founderAddress1 = 0x39Ca53E1ad736fbB8A189C470a982AF0f7c866d2;
   address public constant founderAddress2 = 0x75E15FB3358b4a8Eb2344430e7f4d86A8339c2Ff;
 
   constructor(
@@ -49,25 +48,14 @@ contract DragonNFT is ERC721Enumerable, Ownable {
     if (msg.sender != owner()) {
       require(msg.value >= estimatedPrice, "DRAGONS: incorrect price");
     }
-    yieldToken.updateReward(msg.sender, address(0), 0);
     for (uint256 i = 1; i <= _mintAmount; i++) {
       _safeMint(msg.sender, supply + i);
     }
   }
 
   function transferFrom(address from, address to, uint256 tokenId) public override {
-		yieldToken.updateReward(from, to, tokenId);
 		ERC721.transferFrom(from, to, tokenId);
 	}
-
-	function getReward() external {
-		yieldToken.updateReward(msg.sender, address(0), 0);
-		yieldToken.getReward(msg.sender);
-	}
-
-  function setYieldToken(address _yield) external onlyOwner {
-		yieldToken = YieldToken(_yield);
-	}  
 
   function walletOfOwner(address _owner)
     public
